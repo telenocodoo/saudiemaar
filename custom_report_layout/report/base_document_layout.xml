@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="einv_external_layout_standard" inherit_id="web.external_layout_boxed">
+            <xpath expr="//div[contains(@t-attf-class, 'header')]" position="replace">
+				<t t-set="o" t-value="o.with_context(lang=lang)" />
+				<div class="header" style="width: 100%;height: 100%;">
+					<table class="table table-bordered" style="border: 2px solid white;width: 100%;">
+							<tr>
+								<td width="40%" style="border: 1px solid white;text-align:left;">
+								
+								
+											
+									<div style="text-align: left;font-size: 20px;" class="black">
+										<t t-out="o.company_id.name or ''" />
+									</div>
+									<div style="text-align: left;font-size: 20px;" class="black">
+										<t t-out="o.company_id.street or ''" />
+									</div>
+									<div style="text-align: left;font-size: 14px;" class="black">
+										<t t-out="o.company_id.city or ''" />
+									</div>
+									<div style="text-align: left;font-size: 14px;" class="black">
+										<t t-out="o.company_id.country_id.name or ''" />
+									</div>
+							
+							</td>
+							
+								<td width="20%" style="border: 1px solid white;">
+									<!-- <div class="col-6"> -->
+										<img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+									<!-- </div> -->
+
+									<!-- <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 120px;" alt="Logo" /> -->
+								</td>
+							
+								<td width="40%">
+									<div style="text-align: right;font-size: 20px;" class="black">
+										<t t-out="o.company_id.knk_header1 or ''" />
+									</div>
+									<div style="text-align: right;font-size: 20px;" class="black">
+										<t t-out="o.company_id.knk_header2 or ''" />
+									</div>
+									<div style="text-align: right;font-size: 14px;" class="black">
+										<t t-out="o.company_id.knk_header3 or ''" />
+									</div>
+									<div style="text-align: right;font-size: 14px;" class="black">
+										<t t-out="o.company_id.knk_header4 or ''" />
+									</div>
+								</td>
+							</tr>
+						</table>
+				</div>
+
+              
+                <!-- <div class="header" style="width: 100%;height: 100%;">
+                <img t-att-src="'data:image/*;base64,%s' % to_text(company.header)"
+                         t-att-width="company.header_width" t-att-height="company.header_height"/>
+                </div> -->
+            </xpath>
+
+            <!-- <xpath expr="//div[contains(@t-attf-class,'footer')]" position="replace">
+                <div class="footer" style="width: 100%;height: 100%;">
+                    <img t-att-src="'data:image/*;base64,%s' % to_text(company.footer)"
+                         t-att-width="company.footer_width" t-att-height="company.footer_height"/>
+                </div>
+            </xpath> -->
+            
+            
+    
+        </template>
+
+    </data>
+</odoo>
