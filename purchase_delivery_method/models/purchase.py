@@ -21,7 +21,7 @@ class StockRule(models.Model):
     def _prepare_purchase_order(self, company_id, origins, values):
         res = super(StockRule, self)._prepare_purchase_order(company_id, origins, values)
         values = values[0]
-        partner = values["supplier"].purchase_requisition_id.name
+        partner = values["supplier"].partner_id.name
         if partner.purchase_delivery_carrier_id:
             res.update({
                 'carrier_id': partner.purchase_delivery_carrier_id.id
