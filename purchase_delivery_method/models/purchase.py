@@ -15,16 +15,16 @@ class PurchaseOrder(models.Model):
         self.carrier_id = self.partner_id.purchase_delivery_carrier_id.id
         return res
 
-class StockRule(models.Model):
-    _inherit = 'stock.rule'
+# class StockRule(models.Model):
+#     _inherit = 'stock.rule'
 
-    def _prepare_purchase_order(self, company_id, origins, values):
-        res = super(StockRule, self)._prepare_purchase_order(company_id, origins, values)
-        values = values[0]
-        partner = values["supplier"].partner_id.name
-        if partner.purchase_delivery_carrier_id:
-            res.update({
-                'carrier_id': partner.purchase_delivery_carrier_id.id
-            })
-        return res
+#     def _prepare_purchase_order(self, company_id, origins, values):
+#         res = super(StockRule, self)._prepare_purchase_order(company_id, origins, values)
+#         values = values[0]
+#         partner = values["supplier"].partner_id.name
+#         if partner.purchase_delivery_carrier_id:
+#             res.update({
+#                 'carrier_id': partner.purchase_delivery_carrier_id.id
+#             })
+#         return res
 
