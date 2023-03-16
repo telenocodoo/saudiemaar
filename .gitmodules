@@ -1,4 +1,0 @@
-[submodule "telenocodoo/telenoc_hcm15"]
-	path = telenocodoo/telenoc_hcm15
-	url = git@github.com:telenocodoo/telenoc_hcm15.git
-	branch = Live
