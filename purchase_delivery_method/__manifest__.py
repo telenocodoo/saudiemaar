@@ -17,6 +17,7 @@
         'base',
         'delivery',
         'purchase',
+        'x_letterofcredit',
     ],
     'images': ['images/main_screenshot.png'],
     'data': [
