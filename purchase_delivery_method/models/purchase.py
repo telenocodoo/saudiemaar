@@ -28,3 +28,22 @@ class StockRule(models.Model):
             })
         return res
 
+
+class Letterofcredit(models.Model):
+    _inherit = 'x_letterofcredit'
+    
+    def send_lc_expiry_notification(self):
+        today = fields.Date.context_today(self)
+        lc_having_expire = self.env['x_letterofcredit'].search([('x_studio_notify_before_1', '!=', False )])
+        
+        if lc_having_expire:
+            for lc in lc_having_expire:
+                diff_days = (lc.x_studio_date - today).days
+                if diff_days < lc.x_studio_notify_before_1
+                try:
+                    template_id = 27
+                    except:
+                        pass
+                mail_id = self.env['mail.template'].browse(template_id).send_mail(lc.id,force_send=True)
+
+
