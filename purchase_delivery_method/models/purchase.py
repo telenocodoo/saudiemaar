@@ -39,11 +39,11 @@ class Letterofcredit(models.Model):
         if lc_having_expire:
             for lc in lc_having_expire:
                 diff_days = (lc.x_studio_date - today).days
-                if diff_days < lc.x_studio_notify_before_1
+            if diff_days < lc.x_studio_notify_before_1:
                 try:
-                    template_id = 27
-                    except:
-                        pass
+                template_id = 27
+                except:
+                    pass
                 mail_id = self.env['mail.template'].browse(template_id).send_mail(lc.id,force_send=True)
 
 
