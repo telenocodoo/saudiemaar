@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="letter_of_credit_view_form" model="ir.ui.view">
+        <field name="name">letter_of_credit_view_form.view.form</field>
+        <field name="model">letter.of.credit</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight" states="draft"/>
+                    <button string="Cancel" name="action_cancel" type="object" class="oe_highlight" states="confirm"/>
+                    <button string="Reset to Draft" name="action_draft" type="object" states="confirm"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <field name="notification_mail_sent" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_new_sale_order" type="object" class="oe_stat_button" icon="fa-dollar">
+                            <field name="sale_order_count" widget="statinfo" string="Sale Orders"/>
+                        </button>
+                        <button name="action_view_picking" type="object" class="oe_stat_button" icon="fa-truck" attrs="{'invisible': [('picking_count', '=', 0)]}">
+                            <field name="picking_count" widget="statinfo" string="Shipments" />
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+
+                        <group name="general" string="General">
+                            <group>
+                                <field name="number"  attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                <field name="date_issue" />
+                            </group>
+                            <group>
+                                <field name="date_expiry"  attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                <field name="notify_befoer_period"  attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            </group>
+
+                        </group>
+                        <group name="applicant" string="Applicant">
+                            <group>
+                                <field name="partner_id" attrs="{'readonly': [('state', '=', 'confirm')]}" domain="['|', ('customer_rank', '>=', 1), ('supplier_rank', '>=', 1)]"/>
+                                <field name="phone" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="email" force_save="1"/>
+                                <field name="work_email" />
+                            </group>
+                        </group>
+
+                        <group string="Details">
+                            <group>
+                                <field name="amount"  attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                <field name="partial" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                <field name="date_shipment"  attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                <field name="bank_charges" widget="radio" options="{'horizontal': true}" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            </group>
+                            <group>
+                                <field name="shipment_address" domain="[('type', '=', 'delivery')]" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                                <field name="shipment_address_street" />
+                                <field name="shipment_address_phone" />
+                                
+                            </group>
+                        </group>
+                        <group>
+                            <group name="sign_infos" string="Sign Infos">
+                                <field name="sign_infos" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            </group>
+                            <group name="commerical" string="Commercial Invoice Notes">
+                                <field name="commercial_invoice_notes" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            </group>
+                            
+                        </group>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+                            <field name="message_ids" widget="mail_thread" />
+                        </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="letter_of_credit_view_tree" model="ir.ui.view">
+        <field name="name">letter.of.credit.view.tree</field>
+        <field name="model">letter.of.credit</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name" />
+                <field name="partner_id" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_letter_of_credit" model="ir.actions.act_window">
+        <field name="name">Letter of Credit</field>
+        <field name="res_model">letter.of.credit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>
+                Click 'New' to create a new record
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem
+        id="letter_of_credit_menu"
+        name="Letter of Credit"
+        sequence="10"
+        action="action_letter_of_credit"
+        />
+        
+
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="commercial_invoice_report_doc">
+                <t t-call="web.external_layout">
+                    <div class="page" dir="ltr" style="background-color: #e3c06f; padding: 5px;">
+                        <div class="title">
+                            <h1 class="text-center">Commerical Invoice</h1>
+                        </div>
+                        <div class="customer-details mb-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span>
+                                        CUSTOMER NAME:
+                                    </span>
+                                    <br />
+                                    <h4>
+                                        <t t-esc="o.sale_id.partner_id.name"/>
+                                    </h4>
+                                    <span>
+                                        <t t-esc="o.sale_id.get_partner_address_for_report()"/>
+                                    </span>
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-6">INVOICE NO.:</div>
+                                        <div style="text-align: right;" class="col-6"><t t-esc="o.sale_id.invoice_ids and o.sale_id.invoice_ids[0].name or ''"/></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">DATE:</div>
+                                        <div style="text-align: right;" class="col-6"><t t-esc="o.sale_id.invoice_ids and o.sale_id.invoice_ids[0].date or ''"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="invoice-details">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="text-center" style="color: black;">
+                                        <th width="40%">Goods/Particulars</th>
+                                        <th>QTY.(MT) Shipped</th>
+                                        <th>SAR/Mt</th>
+                                        <th>Amount (SAR)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="total_shipped" t-value="0.0"/>
+                                    <t t-set="total_amount" t-value="0.0"/>
+                                    <t t-foreach="o.sale_id.invoice_ids and o.sale_id.invoice_ids[0].invoice_line_ids or []" t-as="line">
+                                        <tr>
+                                            <td><t t-esc="line.name"/></td>
+                                            <td style="text-align: right;"><t t-esc="'{:,.3f}'.format(line.quantity)"/></td>
+                                            <td style="text-align: right;"><t t-esc="'{:,.2f}'.format(line.price_unit)"/></td>
+                                            <td style="text-align: right;"><t t-esc="'{:,.2f}'.format(line.price_subtotal)"/></td>
+                                        </tr>
+                                        <t t-set="total_shipped" t-value="total_shipped + line.quantity"/>
+                                        <t t-set="total_amount" t-value="total_amount + line.price_subtotal"/>
+                                    </t>
+                                        <tr style="font-weight: bold; background-color: #a88d4f;">
+                                            <td>Total</td>
+                                            <td style="text-align: right;"><t t-esc="'{:,.3f}'.format(total_shipped)"/></td>
+                                            <td style="text-align: right;">SAR</td>
+                                            <td style="text-align: right;"><t t-esc="'{:,.2f}'.format(total_amount)"/></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="notes">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td width="50%"><t t-esc="o.letter_of_credit_id.sign_infos"/></td>
+                                    <td><t t-esc="o.letter_of_credit_id.commercial_invoice_notes"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+    </template>
+
+    <template id="commercial_invoice_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="letter_of_credit.commercial_invoice_report_doc"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

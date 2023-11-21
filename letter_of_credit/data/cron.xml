@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="email_notification_cron" model="ir.cron">
+        <field name="name">LC Email Notification</field>
+        <field name="model_id" ref="letter_of_credit.model_letter_of_credit"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="code">env['letter.of.credit'].search([]).send_notification_email_for_expiry()</field>
+    </record>
+
+</odoo>

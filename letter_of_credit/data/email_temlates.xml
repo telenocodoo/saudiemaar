@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="lc_expiry_notification" model="mail.template">
+        <field name="name">LC Expiry Email Notification</field>
+        <field name="model_id" ref="letter_of_credit.model_letter_of_credit"/>
+        <field name="subject">Letter of Credit Expiry Notification</field>
+        <field name="email_from">{{ object.company_id.email }}</field>
+        <field name="email_to">{{ object.partner_id.email_formatted }}</field>
+        <field name="description">Send to notify partners that their letter of credit is about to expire</field>
+        <field name="body_html" type="html">
+            <p>Dear <t t-out="object.partner_id.name or ''"></t>,<br/></p><p style="margin-bottom: 0px;"><br/></p><p>
+                We are pleased to inform you that your LC be expired soon..! <br/>
+            </p><p><br/></p><p>
+
+            <strong>LC No:</strong> <t t-out="object.name or ''"></t><br/>
+            <strong>LC Expiry Date:</strong> <t t-out="object.date_expiry or ''"></t><br/>
+
+            </p><div style="text-align: left; margin: 16px 0px 16px 0px;">
+                <a href="#" t-att-data-oe-id="object.id" data-oe-model="letter.of.credit" style="padding: 5px 20px; color: #FFFFFF; text-decoration: none; background-color: #875A7B;
+                border: 5px solid #875A7B; border-radius: 5px">
+                View LC</a>
+            </div><p style="margin-bottom: 0px;">
+
+            -------------------------------------------This is a system generated email----------------------------------------------</p>
+        </field>
+    </record>
+
+</odoo>

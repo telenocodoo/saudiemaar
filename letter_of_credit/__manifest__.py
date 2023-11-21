@@ -1,0 +1,33 @@
+{
+    'name': 'Letter of Credit',
+    'version': '1.0',
+    'description': '',
+    'summary': '',
+    'author': 'Nasreldin Omar',
+    'website': 'nasrom9@gmail.com',
+    'license': 'LGPL-3',
+    'category': 'Other',
+    'depends': [
+        'account',
+        'base',
+        'purchase',
+        'sale',
+        'sale_stock',
+        'stock',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/sequence.xml',
+        'data/cron.xml',
+        'data/email_temlates.xml',
+        'views/letter_of_credit_views.xml',
+        'views/sale_order_views.xml',
+        'views/stock_picking_views.xml',
+        'views/account_move_views.xml',
+        'report/commercial_invoice_report_template.xml',
+        'report/commercial_invoice_report.xml',
+    ],
+    'auto_install': False,
+    'application': False,
+    
+}
