@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@class='clearfix mb-4']" position="inside">
+            <div style="text-align: center;">
+                <t t-if="o.image_stamp">
+                    <img t-if="o.image_stamp" t-att-src="image_data_uri(o.image_stamp)" style="max-width: 100%; max-height: 100%;"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>
