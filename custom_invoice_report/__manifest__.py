@@ -8,11 +8,12 @@
     'license': 'LGPL-3',
     'category': 'Accounting',
     'depends': [
-        'account', 'l10n_sa', 'l10n_sa_edi'
+        'account', 'l10n_sa', 'l10n_sa_edi', 'hr'
     ],
     'data': [
         'report/invoice_report.xml',
         'views/res_partner.xml',
+        'views/hr_employee_views.xml',
     ],
     'auto_install': False,
     'application': False,
