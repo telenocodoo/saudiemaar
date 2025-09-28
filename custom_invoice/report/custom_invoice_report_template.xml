@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <template id="custom_invoice_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&amp;display=swap" rel="stylesheet" />
+                <link href="https://fonts.googleapis.com/css2?family=Lateef:wght@400;600&amp;display=swap" rel="stylesheet" />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true" />
+                <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&amp;display=swap" rel="stylesheet" />
+                <t t-call="custom_invoice.custom_external_layout">
+                    <style>
+                        .page {
+                            font-family: 'Lateef', serif;
+                        }
+                        .commercial-details {
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 12px;
+                            font-weight: bold;
+
+                        }
+                        
+                        .commercial-details div.col-5 {
+                            display: flex;
+                            flex-direction: column;
+                            <!-- border: 1px solid black; -->
+                            padding: 10px;
+                        }
+                        .commercial-details div.col-6 {
+                            text-align: center
+                        }
+                        .ltr-col {
+                            text-align: left;
+                            direction: ltr;
+                        }
+                        td.separator {
+                            border: none !important;
+                        }
+                        .product-lines table {
+                            text-align: center;
+                            font-size: 12px;
+                        }
+                        .product-lines table th, .product-lines table td {
+                            border: 1px solid grey;
+                        }
+
+                    </style>
+                    <div class="page" dir="rtl">
+                        <div class="title text-center" dir="ltr">
+                            <h4>VAT Invoice فاتورة ضريبية</h4>
+                        </div>
+                        <div class="commercial-details row">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td width="48%">
+                                            <div class="right">
+                                                <div class="row">
+                                                    <div class="col-3">فاتورة#</div>
+                                                    <div class="col-6"><t t-esc="o.name"/></div>
+                                                    <div class="col-3 ltr-col">Invoice#</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-3">مرجع العقد</div>
+                                                    <div class="col-6"><t t-esc="o.ref"/></div>
+                                                    <div class="col-3 ltr-col">Contract Ref.#</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-3">تاريخ</div>
+                                                    <div class="col-6"><t t-esc="o.invoice_date"/></div>
+                                                    <div class="col-3 ltr-col">Date</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-3">تاريخ الإصدار</div>
+                                                    <div class="col-6"></div>
+                                                    <div class="col-3 ltr-col">Issue Date</div>
+                                                </div>
+                                                
+                                            </div>
+                                        </td>
+                                        <td class="separator"></td>
+                                        <td width="48%">
+                                            <div class="left">
+                                                <div class="row">
+                                                    <div class="col-3">مشتري</div>
+                                                    <div class="col-6"><t t-esc="o.partner_id.name"/></div>
+                                                    <div class="col-3 ltr-col">M/S.</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-3">رقم ضريبة القيمة المضافة للعميل</div>
+                                                    <div class="col-6"><t t-esc="o.partner_id.vat"/></div>
+                                                    <div class="col-3 ltr-col">Client VAT</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            
+                        </div>
+
+                        <div class="product-lines">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th width="15%">
+                                            السعر الكلي
+                                            <br/>
+                                            Total Price
+                                        </th>
+                                        <th width="20%">
+                                            سعر مبلغ مقطوع
+                                            <br/>
+                                            Lump Sum Price
+                                        </th>
+                                        <th width="10">
+                                            كمية
+                                            <br/>
+                                            Quantity
+                                        </th>
+                                        <th>
+                                            وصف
+                                            <br/>
+                                            Description
+                                        </th>
+                                        <th width="15%">
+                                            رقم تسلسلي
+                                            <br/>
+                                            Serial Number
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.invoice_line_ids" t-as="line">
+                                        <t t-set="serial" t-value="1"/>
+                                        <tr>
+                                            <td><t t-esc="'{:,.2f}'.format(line.price_subtotal)"/></td>
+                                            <td><t t-esc="'{:,.2f}'.format(line.price_unit)"/></td>
+                                            <td><t t-esc="'{:,.2f}'.format(line.quantity)"/></td>
+                                            <td><t t-esc="line.name"/></td>
+                                            <td><t t-esc="serial"/></td>
+                                        </tr>
+                                        <t t-set="serial" t-value="serial + 1"/>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
