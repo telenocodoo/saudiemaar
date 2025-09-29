@@ -29,20 +29,26 @@ class ReportCustomSales(models.AbstractModel):
         for order in sale_orders:
             total_qty = sum(line.product_uom_qty for line in order.order_line)
             purchase_order_ids = order._get_purchase_orders().filtered(lambda po: po.state in ['purchase', 'done'])
-            supplier_bills = purchase_order_ids.mapped('invoice_ids').filtered(lambda inv: inv.state == 'posted' and inv.move_type == 'in_invoice')
-            customer_invoices = order.invoice_ids.filtered(lambda inv: inv.state == 'posted' and inv.move_type == 'out_invoice')
-            total_supplier_bill = sum(bill.amount_total for bill in supplier_bills)
-            total_customer_invoice = sum(inv.amount_total for inv in customer_invoices)
-            gross_profit = total_customer_invoice - total_supplier_bill
             
-            sheet.write(row, 0, order.date_order.strftime('%Y-%m-%d'))
-            sheet.write(row, 1, order.name)
-            sheet.write(row, 2, purchase_order_ids.partner_id.name or '')
-            sheet.write(row, 3, order.partner_id.name)
-            sheet.write(row, 4, order.user_id.name)
-            sheet.write(row, 5, total_qty)
-            sheet.write(row, 6, total_customer_invoice)
-            sheet.write(row, 7, total_supplier_bill)
-            sheet.write(row, 8, gross_profit)
-            row += 1
+            customer_invoices = order.invoice_ids.filtered(lambda inv: inv.state == 'posted' and inv.move_type == 'out_invoice')
+            
+            total_customer_invoice = sum(inv.amount_total for inv in customer_invoices)
+            
+            
+            for purchase_order in purchase_order_ids:
+                supplier_name = purchase_order.partner_id.name or ''
+                supplier_bills = purchase_order.mapped('invoice_ids').filtered(lambda inv: inv.state == 'posted' and inv.move_type == 'in_invoice')
+                total_supplier_bill = sum(bill.amount_total for bill in supplier_bills)
+                gross_profit = total_customer_invoice - total_supplier_bill
+            
+                sheet.write(row, 0, order.date_order.strftime('%Y-%m-%d'))
+                sheet.write(row, 1, order.name)
+                sheet.write(row, 2, supplier_name)
+                sheet.write(row, 3, order.partner_id.name)
+                sheet.write(row, 4, order.user_id.name)
+                sheet.write(row, 5, total_qty)
+                sheet.write(row, 6, total_customer_invoice)
+                sheet.write(row, 7, total_supplier_bill)
+                sheet.write(row, 8, gross_profit)
+                row += 1
         
