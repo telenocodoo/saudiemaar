@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="action_report_custom_sales" model="ir.actions.report">
-        <field name="name">Custom Sales Report</field>
+        <field name="name">Sales Report</field>
         <field name="model">custom.sale.report.wizard</field>
         <field name="report_type">xlsx</field>
         <field name="report_name">custom_sales_report.report_xlsx</field>
