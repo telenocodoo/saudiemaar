@@ -181,11 +181,11 @@
                     </style>
                     <div class="page">
                         <div class="header invoice-header" dir="rtl" style="font-family: 'Arial Bold', serif;">
-                            <div style="width:100%; border-bottom:1px solid #ccc; padding:10px 0; font-family:Arial, sans-serif;">
+                            <div style="width:100%;padding:10px 0; font-family:Arial, sans-serif;">
                                 <table dir="ltr" style="width:100%; border-collapse:collapse;" class="table table-borderless text-center">
                                     <tr>
                                         <!-- Left Side: English -->
-                                        <td style="width:40%; text-align:center; vertical-align:top; font-size:12px; line-height:21px;">
+                                        <td style="width:40%; text-align:center; vertical-align:top; font-size:12px; line-height:21px; font-weight: bold;">
                                             <strong style="font-size:15px; color:#2d7a64;">Saudi Emaar Trading Co.</strong><br/>
                                             <strong>C.R. 2050043022</strong>
                                             <br/>
@@ -214,7 +214,7 @@
                                         </td>
 
                                         <!-- Right Side: Arabic -->
-                                        <td style="width:40%; text-align:center; vertical-align:top; font-size:13px; line-height:21px; direction:rtl;">
+                                        <td style="width:40%; text-align:center; vertical-align:top; font-size:13px; line-height:21px; direction:rtl; font-weight: bold;">
                                             <strong style="font-size:15px; color:#2d7a64;">شركة إعمار السعودية التجارية</strong><br/>
                                             <strong>س.ت ٢٠٥٠٠٤٣٠٢٢</strong>
                                             <br/>
@@ -232,11 +232,11 @@
                             </div>
 
                         </div>
-
+                        <br/>
                         <hr/>
 
-                        <div class="commercial-details row mt-5">
-                            <table class="table table-bordered">
+                        <div class="commercial-details row mt-2">
+                            <table class="table table-borderless">
                                 <tbody>
                                     <tr>
                                         <td style="border-right: none;" colspan="4">Client Details</td>
@@ -395,7 +395,7 @@
                         </div>
 
                         <hr/>
-                        <div class="row footer" dir="ltr" style="font-size: 12px; font: 'Arial'; vertical-align: middle; border-top: 1px solid #ccc; padding-top: 10px; margin-top: 10px;">
+                        <div class="row footer" dir="ltr" style="font-size: 12px; font: 'Arial'; vertical-align: middle; border-top: 1px solid #ccc; padding-top: 10px; padding-bottom: 70px; margin-top: 10px;">
                             <div class="col-3">
                                 <img t-att-src="'/custom_invoice_report/static/src/img/stamp.jpeg'" style="max-height: 150px;" alt="Stamp"/>
                             </div>
@@ -442,7 +442,7 @@
         <field name="format">A4</field>
         <field name="orientation">Portrait</field>
         <field name="margin_top">45</field>
-        <field name="margin_bottom">35</field>
+        <field name="margin_bottom">40</field>
         <field name="margin_left">10</field>
         <field name="margin_right">10</field>
         <field name="header_spacing">40</field>
@@ -450,7 +450,7 @@
     </record>
 
     <record id="action_report_custom_invoice" model="ir.actions.report">
-        <field name="name">Invoice</field>
+        <field name="name">Saudi Emaar Invoice</field>
         <field name="model">account.move</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">custom_invoice_report.report_invoice</field>
