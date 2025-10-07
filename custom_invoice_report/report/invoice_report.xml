@@ -177,6 +177,10 @@
                             direction: rtl;
                             border: none;
                         }
+                        .no-side-borders-4, .no-side-borders-8 {
+                            line-height: 0.1;
+                            padding: 0;
+                        }
 
                     </style>
                     <div class="page">
@@ -185,7 +189,7 @@
                                 <table dir="ltr" style="width:100%; border-collapse:collapse;" class="table table-borderless text-center">
                                     <tr>
                                         <!-- Left Side: English -->
-                                        <td style="width:40%; text-align:center; vertical-align:top; font-size:12px; line-height:21px; font-weight: bold;">
+                                        <td style="width:40%; text-align:left; vertical-align:top; font-size:12px; line-height:21px; font-weight: bold;">
                                             <strong style="font-size:15px; color:#2d7a64;">Saudi Emaar Trading Co.</strong><br/>
                                             <strong>C.R. 2050043022</strong>
                                             <br/>
@@ -214,7 +218,7 @@
                                         </td>
 
                                         <!-- Right Side: Arabic -->
-                                        <td style="width:40%; text-align:center; vertical-align:top; font-size:13px; line-height:21px; direction:rtl; font-weight: bold;">
+                                        <td style="width:40%; text-align:right; vertical-align:top; font-size:13px; line-height:21px; direction:rtl; font-weight: bold;">
                                             <strong style="font-size:15px; color:#2d7a64;">شركة إعمار السعودية التجارية</strong><br/>
                                             <strong>س.ت ٢٠٥٠٠٤٣٠٢٢</strong>
                                             <br/>
@@ -238,12 +242,6 @@
                         <div class="commercial-details row mt-2">
                             <table class="table table-borderless">
                                 <tbody>
-                                    <tr>
-                                        <td style="border-right: none;" colspan="4">Client Details</td>
-                                        
-                                        <td style="text-align: right; border-left: none;" colspan="4">تفاصيل شركة العميل</td>
-                                    </tr>
-
                                     <tr class="no-side-borders-4">
                                         <td colspan="1">Name</td>
                                         <td colspan="3"><t t-esc="o.partner_id.name"/></td>
@@ -267,35 +265,23 @@
                                         <td width="15%"><t t-esc="o.to_indian_numerals(o.partner_id.l10n_sa_edi_building_number)"/></td>
                                         <td width="10%">رقم المبنى:</td>
                                     </tr>
-                                    <tr class="no-side-borders-8">
-                                        <td>Addl No:</td>
-                                        <td><t t-esc="o.partner_id.l10n_sa_edi_plot_identification"/></td>
-                                        <td>District:</td>
-                                        <td><t t-esc="o.partner_id.street2"/></td>
-                                        <td><t t-esc="o.partner_id.street2_arabic"/></td>
-                                        <td>الحي:</td>
-                                        <td><t t-esc="o.to_indian_numerals(o.partner_id.l10n_sa_edi_plot_identification)"/></td>
-                                        <td>الرقم الإضافي</td>
+                                    <tr class="no-side-borders-4">
+                                        <td colspan="1">District:</td>
+                                        <td colspan="3"><t t-esc="o.partner_id.street2"/></td>
+                                        <td colspan="3"><t t-esc="o.partner_id.street2_arabic"/></td>
+                                        <td colspan="1">الحي:</td>
                                     </tr>
-                                    <tr class="no-side-borders-8">
-                                        <td>Postal Code:</td>
-                                        <td><t t-esc="o.partner_id.zip"/></td>
-                                        <td>Country:</td>
-                                        <td><t t-esc="o.partner_id.country_id.name"/></td>
-                                        <td><t t-esc="o.with_context(lang='ar_001').partner_id.country_id.name"/></td>
-                                        <td>البلد:</td>
-                                        <td><t t-esc="o.to_indian_numerals(o.partner_id.zip)"/></td>
-                                        <td>الرمز البريدي:</td>
+                                    <tr class="no-side-borders-4">
+                                        <td colspan="1">Postal Code:</td>
+                                        <td colspan="3"><t t-esc="o.partner_id.zip"/></td>
+                                        <td colspan="3"><t t-esc="o.to_indian_numerals(o.partner_id.zip)"/></td>
+                                        <td colspan="1">الرمز البريدي:</td>
                                     </tr>
-                                    <tr class="no-side-borders-8">
-                                        <td>VAT Number:</td>
-                                        <td><t t-esc="o.partner_id.vat"/></td>
-                                        <td>CRN:</td>
-                                        <td><t t-esc="o.partner_id.l10n_sa_additional_identification_number"/></td>
-                                        <td><t t-esc="o.to_indian_numerals(o.partner_id.l10n_sa_additional_identification_number)"/></td>
-                                        <td>معرف آخر:</td>
-                                        <td><t t-esc="o.to_indian_numerals(o.partner_id.vat)"/></td>
-                                        <td>الرقم الضريبي:</td>
+                                    <tr class="no-side-borders-4">
+                                        <td colspan="1">VAT Number:</td>
+                                        <td colspan="3"><t t-esc="o.partner_id.vat"/></td>
+                                        <td colspan="3"><t t-esc="o.to_indian_numerals(o.partner_id.vat)"/></td>
+                                        <td colspan="1">الرقم الضريبي:</td>
                                     </tr>
                                 </tbody>
                             </table>
