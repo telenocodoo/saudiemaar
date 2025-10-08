@@ -68,7 +68,7 @@ class ReportCustomSales(models.AbstractModel):
                 sheet.write(row, 0, order.date_order.strftime('%Y-%m-%d'), normal_format)
                 sheet.write(row, 1, order.name, normal_format)
                 sheet.write(row, 2, supplier_name, normal_format)
-                sheet.write(row, 3, order.partner_id.name, normal_format)
+                sheet.write(row, 3, order.partner_id.parent_id.name or order.partner_id.name, normal_format)
                 sheet.write(row, 4, order.user_id.name, normal_format)
                 sheet.write(row, 5, total_qty, normal_format)
                 sheet.write(row, 6, total_customer_invoice, normal_format)
