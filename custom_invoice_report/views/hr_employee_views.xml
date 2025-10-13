@@ -9,6 +9,9 @@
             <xpath expr="//field[@name='name']" position="after">
                 <field name="arabic_name"/>
             </xpath>
+            <xpath expr="//field[@name='address_home_id']" position="after">
+                <field name="sign_signature" widget="signature" />
+            </xpath>
         </field>
     </record>
 

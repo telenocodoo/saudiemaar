@@ -1,8 +1,10 @@
-from odoo import models
+from odoo import models, fields
 
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
+    
+    employee_id = fields.Many2one('hr.employee', string='Employee')
     
     def to_indian_numerals(self, num):
         if not num:
