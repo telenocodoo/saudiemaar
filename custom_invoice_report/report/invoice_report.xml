@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="custom_external_layout">
+        <t t-if="not o" t-set="o" t-value="doc" />
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+
+        <div class="" dir="rtl" style="margin-top: 10px; font-family: 'Arial' !important;">
+            <div class="row">
+                <div class="col-5" dir="rtl">
+                    شركة اعمار السعودية التجارية شركة شخص واحد
+                    <br/>
+                    المملكة العربية السعودية
+                    <br/>
+                    طريق الملك سعود, حي النورس, الدمام
+                    <br/>
+                    مبنى رقم 9944, الرقم الفرعي 7446
+                    <br/>
+                    الرمز البريدي 41223
+                    <br/>
+                    سجل تجاري رقم 2203400502
+                    <br/>
+                    الرقم الضريبي 300006788744113
+                    <br/> هاتف +966 13 832 3388
+                    <br/> فاكس +966 13 832 9933
+
+                </div>
+                <div class="col-2 text-center logo">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 100px;" alt="Logo"/>
+                </div>
+                <div class="col-5" dir="ltr">
+                    Emaar Saudi Trading Co. Single Person Company
+                    <br/>
+                    Kingdom of Saudi Arabia
+                    <br/>
+                    King Saud Road, Al Norus District, Dammam
+                    <br/>
+                    Building No. 9944, Sub No. 7446
+                    <br/>
+                    P.O. Box 41223
+                    <br/>
+                    Commercial Registration No. 2203400502
+                    <br/>
+                    VAT Registration No. 300006788744113
+                    <br/> Tel +966 13 832 3388
+                    <br/> Fax +966 13 832 9933
+                </div>
+            </div>
+        </div>
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+            t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-out="0" />
+        </div>
+    </template>
+
+    <template id="report_invoice">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="custom_invoice_report.custom_external_layout">
+                    <style>
+                    @font-face {
+                        font-family: 'Arial';
+                        src: url('/custom_invoice_report/static/src/fonts/ARIAL.TTF') format('truetype');
+                    }
+                    @font-face {
+                        font-family: 'Arial Bold';
+                        src: url('/custom_invoice_report/static/src/fonts/ARIALBD 1.TTF') format('truetype');
+                    }
+                    .header {
+                        font-family: 'Arial', serif;
+                    }
+                    table.client-details td {
+                        font-family: 'Arial', serif;
+                        padding: 5px;
+                        height: 10px;
+                    }
+                    table.client-details tr {
+                        
+                        height: 10px;
+                    }
+                    .invoice-header {
+                        line-height: 3.5 !important;
+                    }
+                    .page {
+                            font-family: 'Lateef', serif;
+                        }
+                        .commercial-details {
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 11px;
+                            font-weight: bold;
+                            font-family: 'Arial', serif;
+
+                        }
+                        
+                        .commercial-details div.col-5 {
+                            display: flex;
+                            flex-direction: column;
+                            <!-- border: 1px solid black; -->
+                            padding: 10px;
+                        }
+                        .commercial-details div.col-6 {
+                            text-align: center
+                        }
+                        .ltr-col {
+                            text-align: left;
+                            direction: ltr;
+                        }
+                        td.separator {
+                            border: none !important;
+                        }
+                        .product-lines table {
+                            text-align: center;
+                            font-size: 12px;
+                        }
+                        .product-lines table th, .product-lines table td {
+                            border: 1px solid grey;
+                        }
+                        .no-side-borders-4 td:first-child, 
+                        .no-side-borders-4 td:nth-child(3) {
+                            border-right: none;
+                        }
+                        .no-side-borders-4 td:first-child, 
+                        .no-side-borders-4 td:nth-child(2) {
+                            text-align: left;
+                
+                        }
+                        .no-side-borders-4 td:nth-child(3), 
+                        .no-side-borders-4 td:nth-child(4) {
+                            text-align: right;
+                            direction: rtl;
+                            border: none;
+                        }
+                        .no-side-borders-4 td:nth-child(2),
+                        .no-side-borders-4 td:nth-child(4) {
+                            border-left: none;
+                        }
+                        .no-side-borders-8 td:first-child, 
+                        .no-side-borders-8 td:nth-child(3),
+                        .no-side-borders-8 td:nth-child(5),
+                        .no-side-borders-8 td:nth-child(7) {
+                            border-right: none;
+                        }
+                        .no-side-borders-4 td:first-child, 
+                        .no-side-borders-4 td:nth-child(4) {
+                            background-color: #EEEEEE;
+                        }
+                        .no-side-borders-8 td:nth-child(1),
+                        .no-side-borders-8 td:nth-child(3),
+                        .no-side-borders-8 td:nth-child(6),
+                        .no-side-borders-8 td:nth-child(8) {
+                            background-color: #EEEEEE;
+                        }
+                        .no-side-borders-8 td:nth-child(1),
+                        .no-side-borders-8 td:nth-child(2),
+                        .no-side-borders-8 td:nth-child(3),
+                        .no-side-borders-8 td:nth-child(4) {
+                            text-align: left;
+                        }
+                        .no-side-borders-8 td:nth-child(5),
+                        .no-side-borders-8 td:nth-child(6),
+                        .no-side-borders-8 td:nth-child(7),
+                        .no-side-borders-8 td:nth-child(8) {
+                            text-align: right;
+                            direction: rtl;
+                            border: none;
+                        }
+                        .no-side-borders-4, .no-side-borders-8 {
+                            line-height: 0.1;
+                            padding: 0;
+                        }
+
+                    </style>
+                    <div class="page">
+                        <div class="header invoice-header" dir="rtl" style="font-family: 'Arial Bold', serif;">
+                            <div style="width:100%;padding:10px 0; font-family:Arial, sans-serif;">
+                                <table dir="ltr" style="width:100%; border-collapse:collapse;" class="table table-borderless text-center">
+                                    <tr>
+                                        <!-- Left Side: English -->
+                                        <td style="width:40%; text-align:left; vertical-align:top; font-size:12px; line-height:21px; font-weight: bold;">
+                                            <strong style="font-size:15px; color:#2d7a64;">Saudi Emaar Trading Co.</strong><br/>
+                                            <strong>C.R. 2050043022</strong>
+                                            <br/>
+                                            Tel.: +966 13 859 0441, Al Nawras Commercial Building,<br/>
+                                            2nd Floor, Al Nawras District, King Saud Road,<br/>
+                                            P.O.Box 76443, Z. Code 31461,<br/>
+                                            Kingdom of Saudi Arabia
+                                            <div style="margin-top:5px; position:relative; height:6px; width:60%; margin-left: auto; margin-right: auto;">
+                                                <div style="border-bottom:3px solid #2d7a64; width:100%; position:absolute; top:0; left:0; margin-left: auto; margin-right: auto;"></div>
+                                                <div style="border-bottom:6px solid #2d7a64; width:40%; position:absolute; top:-1.5px; left:30%; margin-left: auto; margin-right: auto;"></div>
+                                            </div>
+                                        </td>
+
+                                        <!-- Center: Logo -->
+                                        <td style="width:20%; text-align:center; vertical-align:middle;">
+                                            <img t-if="env.company.logo" t-att-src="image_data_uri(env.company.logo)" style="max-height: 70px; margin-left: auto; margin-right: auto;" alt="Logo"/>
+                                            <br/>
+                                            <span style="font-size:13px; color:#2d7a64;">www.saudiemaar.sa</span>
+                                            <br/>
+                                            <div style="color: white; background-color: #666666; font-weight: bold;">
+                                                <span>فاتورة ضريبية</span>
+                                                <br />
+                                                <span>Tax Invoice</span>
+                                            </div>
+                                            <span class="text-center"><t t-esc="o.name"/></span>
+                                        </td>
+
+                                        <!-- Right Side: Arabic -->
+                                        <td style="width:40%; text-align:right; vertical-align:top; font-size:13px; line-height:21px; direction:rtl; font-weight: bold;">
+                                            <strong style="font-size:15px; color:#2d7a64;">شركة إعمار السعودية التجارية</strong><br/>
+                                            <strong>س.ت ٢٠٥٠٠٤٣٠٢٢</strong>
+                                            <br/>
+                                            هاتف: ‎<span dir="ltr">+ <t t-esc="o.to_indian_numerals('1440 958 31 669')"/></span>، مبنى النورس التجاري،<br/>
+                                            الطابق الثاني، حي النورس، طريق الملك سعود<br/>
+                                            ص.ب ٧٦٤٤٣، الرمز البريدي ٣١٤٦١<br/>
+                                            المملكة العربية السعودية
+                                            <div style="margin-top:5px; position:relative; height:6px; width:60%; margin-left: auto; margin-right: auto;">
+                                                <div style="border-bottom:3px solid #2d7a64; width:100%; position:absolute; top:0; left:0; margin-left: auto; margin-right: auto;"></div>
+                                                <div style="border-bottom:6px solid #2d7a64; width:40%; position:absolute; top:-1.5px; left:30%; margin-left: auto; margin-right: auto;"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                        <br/>
+                        <hr/>
+
+                        <div class="commercial-details row mt-2">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr class="no-side-borders-4">
+                                        <td colspan="1">Name</td>
+                                        <td colspan="3"><t t-esc="o.partner_id.name"/></td>
+                                        <td colspan="3"><t t-esc="o.partner_id.arabic_name"/></td>
+                                        <td colspan="1">الاسم</td>
+                                    </tr>
+                                    <tr class="no-side-borders-4">
+                                        <td colspan="1">Street Name:</td>
+                                        <td colspan="3"><t t-esc="o.partner_id.street"/></td>
+                                        <td colspan="3"><t t-esc="o.partner_id.street_arabic"/></td>
+                                        <td colspan="1">اسم الشارع</td>
+                                    </tr>
+
+                                    <tr class="no-side-borders-8">
+                                        <td width="10%">Building No:</td>
+                                        <td width="15%"><t t-esc="o.partner_id.l10n_sa_edi_building_number"/></td>
+                                        <td width="10%">City:</td>
+                                        <td width="15%"><t t-esc="o.partner_id.city"/></td>
+                                        <td width="15%"><t t-esc="o.partner_id.city_arabic"/></td>
+                                        <td width="10%">المدينة:</td>
+                                        <td width="15%"><t t-esc="o.to_indian_numerals(o.partner_id.l10n_sa_edi_building_number)"/></td>
+                                        <td width="10%">رقم المبنى:</td>
+                                    </tr>
+                                    <tr class="no-side-borders-4">
+                                        <td colspan="1">District:</td>
+                                        <td colspan="3"><t t-esc="o.partner_id.street2"/></td>
+                                        <td colspan="3"><t t-esc="o.partner_id.street2_arabic"/></td>
+                                        <td colspan="1">الحي:</td>
+                                    </tr>
+                                    <tr class="no-side-borders-4">
+                                        <td colspan="1">Postal Code:</td>
+                                        <td colspan="3"><t t-esc="o.partner_id.zip"/></td>
+                                        <td colspan="3"><t t-esc="o.to_indian_numerals(o.partner_id.zip)"/></td>
+                                        <td colspan="1">الرمز البريدي:</td>
+                                    </tr>
+                                    <tr class="no-side-borders-4">
+                                        <td colspan="1">VAT Number:</td>
+                                        <td colspan="3"><t t-esc="o.partner_id.vat"/></td>
+                                        <td colspan="3"><t t-esc="o.to_indian_numerals(o.partner_id.vat)"/></td>
+                                        <td colspan="1">الرقم الضريبي:</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            
+                            
+                            
+                        </div>
+                        <hr/>
+
+                        <div class="product-lines">
+                            <table class="table" dir="rtl">
+                                <thead>
+                                    <tr>
+                                        <th width="15%">
+                                            Amount
+                                            <br/>
+                                            الإجمالي
+                                        </th>
+                                        <th width="20%">
+                                            Price
+                                            <br/>
+                                            السعر
+                                        </th>
+                                        <th width="10">
+                                            Quantity
+                                            <br/>
+                                            كمية
+                                        </th>
+                                        <th width="10">
+                                            Unit
+                                            <br/>
+                                            وحدة
+                                        </th>
+                                        <th>
+                                            Description
+                                            <br />
+                                            وصف
+                                        </th>
+                                        <th width="15%">
+                                             No
+                                             <br />
+                                             رقم
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="serial" t-value="1"/>
+                                    <t t-foreach="o.invoice_line_ids" t-as="line">
+                                        <t t-set="arabic_unit_name" t-value="line.with_context(lang='ar_001').product_uom_id.name"/>
+                                        <t t-set="english_unit_name" t-value="line.with_context(lang='en_US').product_uom_id.name"/>
+                                        <tr>
+                                            <td><t t-esc="'{:,.2f}'.format(line.price_subtotal)"/></td>
+                                            <td><t t-esc="'{:,.2f}'.format(line.price_unit)"/></td>
+                                            <td><t t-esc="'{:,.2f}'.format(line.quantity)"/></td>
+                                            <td><span t-if="arabic_unit_name == english_unit_name"><t t-esc="english_unit_name"/></span>
+                                            <span t-if="arabic_unit_name != english_unit_name">
+                                                <t t-esc="english_unit_name"/>
+                                                <br />
+                                                <t t-esc="arabic_unit_name"/>
+                                            </span>
+                                            </td>
+                                            <td><t t-esc="line.name"/></td>
+                                            <td><t t-esc="serial"/></td>
+                                        </tr>
+                                        <t t-set="serial" t-value="serial + 1"/>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <hr/>
+
+                        <div class="product-lines" style="width: 75%; margin-left: auto; margin-right: auto;">
+                            <table class="table table-borderless">
+    
+                                <tr>
+                                <td class="value-en">Total:</td>
+                                <td><t t-esc="'{:,.2f}'.format(o.amount_untaxed)"/></td>
+                                <td class="currency">SAR</td>
+                                <td class="label-ar">: المجموع</td>
+                                </tr>
+                                
+                                <tr>
+                                <td class="value-en">VAT %15:</td>
+                                <td><t t-esc="'{:,.2f}'.format(o.amount_tax)"/></td>
+                                <td class="currency">SAR</td>
+                                <td class="label-ar">: القيمة المضافة %15</td>
+                                </tr>
+                                <tr>
+                                <td class="value-en">Claims:</td>
+                                <td class="highlight"><t t-esc="'{:,.2f}'.format(o.amount_total)"/></td>
+                                <td class="currency highlight">SAR</td>
+                                <td class="label-ar highlight">: المستحق</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <hr/>
+                        <div class="row footer" dir="ltr" style="font-size: 12px; font: 'Arial'; vertical-align: middle; border-top: 1px solid #ccc; padding-top: 10px; padding-bottom: 70px; margin-top: 10px;">
+                            <div class="col-3">
+                                <img t-att-src="'/custom_invoice_report/static/src/img/stamp.jpeg'" style="max-height: 150px;" alt="Stamp"/>
+                            </div>
+                            <div class="col-3">
+                                <img t-if="o.employee_id.sign_signature" t-att-src="image_data_uri(o.employee_id.sign_signature)" style="max-height: 100px;" alt="Signature"/>
+                            </div>
+                            <div class="col-3">
+                                <p>
+                        <img t-if="o.l10n_sa_qr_code_str"
+                            style="display:block;"
+                            t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', quote_plus(o.l10n_sa_qr_code_str), 150, 150)"/>
+                    </p>
+                            </div>
+                            <div class="col-3"  dir="rtl" style="vertical-align: middle;">
+                                <div dir="rtl">
+                                    <span style="text-align: right; direction: rtl">
+                                اسم الموظف: <t t-esc="o.user_id.employee_id.arabic_name"/> 
+                                </span>
+                                </div>
+                                
+                                <div dir="ltr">
+                                    <span style="text-align: left; direction: ltr">
+                                    Employee: <t t-esc="o.user_id.employee_id.name"/>
+                                </span>
+                                </div>
+                                <div dir="ltr">
+                                    <span style="text-align: left; direction: ltr">
+                                     <t t-esc="o.user_id.login"/>-<t t-esc="o.user_id.phone"/>
+                                </span>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="paperformat_a4" model="report.paperformat">
+        <field name="name">A4</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">45</field>
+        <field name="margin_bottom">40</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_custom_invoice" model="ir.actions.report">
+        <field name="name">Saudi Emaar Invoice</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_invoice_report.report_invoice</field>
+        <field name="report_file">custom_invoice_report.report_invoice</field>
+        <field name="print_report_name">'%s' % object.name</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_a4" />
+    </record>
+
+
+
+</odoo>
